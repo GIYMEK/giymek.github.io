@@ -5,22 +5,103 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>GIYMEK | Crafted To Conquer</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Syncopate:wght@700&family=Outfit:wght@200;400;600&display=swap" rel="stylesheet">
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Quincy&family=Afrah:wght@300;400;500&display=swap" rel="stylesheet">
 
+<!-- GSAP -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
 
 <style>
-:root { --gold: #d4af37; --bg: #000; --card-bg: #0f0f0f; --white: #fff; }
-body { margin:0; background: var(--bg); color: var(--white); font-family:'Outfit',sans-serif; overflow-x:hidden; }
-.section { min-height:100vh; display:flex; flex-direction:column; align-items:center; padding:60px 20px; }
-.category-title { letter-spacing:8px; color: var(--gold); border-bottom:1px solid var(--gold); padding-bottom:10px; margin-top:40px; text-transform:uppercase; }
-.grid { display:flex; flex-wrap:wrap; justify-content:center; gap:30px; max-width:1200px; width:100%; }
-.card { background:var(--card-bg); border:1px solid #1a1a1a; padding:15px; width:280px; text-align:left; border-radius:4px; transition:0.5s; position:relative; }
-.card img { width:100%; aspect-ratio:3/4; object-fit:cover; margin-bottom:10px; background:#111; }
-.product-name { font-weight:600; font-size:1.1rem; margin:5px 0; color: var(--white); }
-.price { color:var(--gold); font-size:1.2rem; margin-bottom:10px; }
-.stock-status { font-size:0.8rem; margin-bottom:10px; }
+:root {
+    --gold: #d4af37;
+    --bg: #000;
+    --card-bg: #0f0f0f;
+    --white: #fff;
+}
+
+body {
+    margin:0;
+    background: var(--bg);
+    color: var(--white);
+    font-family:'Afrah',sans-serif;
+    overflow-x:hidden;
+}
+
+header {
+    text-align:center;
+    padding:100px 20px;
+}
+header h1 {
+    font-family:'Quincy', serif;
+    font-size:60px;
+    color:var(--gold);
+    margin:0;
+}
+header p {
+    font-size:20px;
+    margin:10px 0;
+}
+.btn {
+    display:inline-block;
+    margin-top:20px;
+    padding:12px 25px;
+    background: var(--gold);
+    color:black;
+    text-decoration:none;
+    font-weight:bold;
+    border-radius:5px;
+    font-family:'Quincy', serif;
+    transition:0.3s;
+}
+.btn:hover { opacity:0.85; }
+
+.section {
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    padding:60px 20px;
+}
+.category-title {
+    letter-spacing:8px;
+    color: var(--gold);
+    border-bottom:1px solid var(--gold);
+    padding-bottom:10px;
+    margin-top:40px;
+    text-transform:uppercase;
+}
+
+.grid {
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:center;
+    gap:30px;
+    max-width:1200px;
+    width:100%;
+}
+.card {
+    background: var(--card-bg);
+    border:1px solid #1a1a1a;
+    padding:15px;
+    width:280px;
+    text-align:left;
+    border-radius:8px;
+    transition:0.5s;
+    position:relative;
+    opacity:0;
+    transform:translateY(30px);
+}
+.card img {
+    width:100%;
+    aspect-ratio:3/4;
+    object-fit:cover;
+    margin-bottom:10px;
+    background:#111;
+}
+.product-name { font-weight:600; font-size:1.1rem; margin:5px 0; color: var(--white);}
+.price { color: var(--gold); font-size:1.2rem; margin-bottom:10px;}
+.stock-status { font-size:0.8rem; margin-bottom:10px;}
 .options-label { font-size:0.8rem; color:#888; margin-bottom:5px; display:block; }
 .size-selector { display:flex; gap:5px; margin-bottom:15px; flex-wrap:wrap; }
 .size-btn { border:1px solid #333; padding:5px 10px; font-size:0.7rem; cursor:pointer; transition:0.3s; background:transparent; color:white; }
@@ -29,17 +110,27 @@ body { margin:0; background: var(--bg); color: var(--white); font-family:'Outfit
 .qty-btn { background:none; border:none; color:white; padding:5px 12px; cursor:pointer; font-size:1.1rem; }
 .qty-btn:disabled { opacity:0.3; cursor:not-allowed; }
 .qty-val { padding:0 10px; min-width:20px; text-align:center; border-left:1px solid #333; border-right:1px solid #333; }
-.buy-now { width:100%; background:var(--gold); color:black; border:none; padding:12px; font-weight:700; text-transform:uppercase; cursor:pointer; transition:0.4s; letter-spacing:1px; }
+.buy-now { width:100%; background: var(--gold); color:black; border:none; padding:12px; font-weight:700; text-transform:uppercase; cursor:pointer; transition:0.4s; letter-spacing:1px;}
 .buy-now:hover { background:white; }
-.reveal { opacity:0; transform:translateY(30px); }
-@media (max-width:600px){ .card { width:90%; } }
-/* Inventory panel hidden by default */
-#inventory-panel { display:none; position:fixed; top:10px; right:10px; background:#111; border:1px solid var(--gold); padding:20px; z-index:1000; width:300px; max-height:90vh; overflow-y:auto; }
-#inventory-panel h3 { margin-top:0; color:var(--gold); }
-#inventory-panel button { margin-top:5px; margin-right:5px; padding:3px 7px; cursor:pointer; }
+@media(max-width:600px){ .card{width:90%;} }
+
+.contact-info { margin-top:40px; font-size:18px; }
+.contact-info a { color: var(--gold); text-decoration:none; }
+
+footer { text-align:center; padding:30px; background:#111;}
 </style>
 </head>
 <body>
+
+<header>
+    <h1>GIYMEK</h1>
+    <p>Crafted To Conquer</p>
+    <a href="#collections" class="btn">Shop Now</a>
+</header>
+
+<section id="collections" class="section">
+    <h2 class="category-title">Collections</h2>
+</section>
 
 <section class="section">
     <h2 class="category-title">CLOTHING</h2>
@@ -56,154 +147,119 @@ body { margin:0; background: var(--bg); color: var(--white); font-family:'Outfit
     <div class="grid" id="perfume-grid"></div>
 </section>
 
-<!-- Inventory Panel (hidden from visitors) -->
-<div id="inventory-panel">
-    <h3>Inventory Panel</h3>
-    <div id="inventory-list"></div>
-    <button onclick="changePassword()">Change Password</button>
-    <button onclick="hideInventory()">Close</button>
-</div>
+<section class="section contact-info">
+    <h2>Contact Us</h2>
+    <p>Email: <a href="mailto:giymekfashion@gmail.com">giymekfashion@gmail.com</a></p>
+    <p>WhatsApp: <a href="https://wa.me/8801970141884" target="_blank">01970141884</a></p>
+</section>
+
+<footer>
+    <p>© 2026 GIYMEK | Crafted To Conquer</p>
+</footer>
 
 <script>
 gsap.registerPlugin(ScrollTrigger);
 
-// Products data
-let products=[
-    {category:'Clothing', name:'Premium Cotton T-shirt', price:'৳ 440', sizes:['M','L','XL','XXL'], img:'tshirt1.jpg', stock:10},
-    {category:'Organic', name:'Organic Skin Care', price:'৳ 550', sizes:[], img:'skincare1.jpg', stock:5},
-    {category:'Perfume', name:'GIYMEK Special Oud', price:'৳ 850', sizes:['6ml','15ml','30ml','50ml','100ml'], img:'perfume1.jpg', stock:7}
+// Define all products with placeholder images
+const products = [
+  // Clothing
+  {category:'Clothing', name:'Drop Shoulder', price:'৳ 500', sizes:['S','M','L'], img:'https://via.placeholder.com/300x400/111/d4af37?text=Drop+Shoulder', stock:10},
+  {category:'Clothing', name:'Regular Fit', price:'৳ 450', sizes:['M','L','XL'], img:'https://via.placeholder.com/300x400/111/d4af37?text=Regular+Fit', stock:8},
+  {category:'Clothing', name:'Sublimation Jersey', price:'৳ 550', sizes:['M','L','XL'], img:'https://via.placeholder.com/300x400/111/d4af37?text=Sublimation+Jersey', stock:5},
+
+  // Organic
+  {category:'Organic', name:'Food', price:'৳ 300', sizes:[], img:'https://via.placeholder.com/300x400/111/d4af37?text=Food', stock:12},
+  {category:'Organic', name:'Skin Care', price:'৳ 600', sizes:[], img:'https://via.placeholder.com/300x400/111/d4af37?text=Skin+Care', stock:7},
+
+  // Perfume
+  {category:'Perfume', name:'Attar', price:'৳ 700', sizes:['6ml','15ml','30ml'], img:'https://via.placeholder.com/300x400/111/d4af37?text=Attar', stock:10},
+  {category:'Perfume', name:'Decent', price:'৳ 800', sizes:['15ml','30ml','50ml'], img:'https://via.placeholder.com/300x400/111/d4af37?text=Decent', stock:8},
+  {category:'Perfume', name:'Giymek Special', price:'৳ 1200', sizes:['30ml','50ml','100ml'], img:'https://via.placeholder.com/300x400/111/d4af37?text=Giymek+Special', stock:6},
+  {category:'Perfume', name:'Other Brands', price:'৳ 900', sizes:['30ml','50ml'], img:'https://via.placeholder.com/300x400/111/d4af37?text=Other+Brands', stock:5}
 ];
-// Load stock from localStorage
-if(localStorage.getItem('productStock')){
-    const stored = JSON.parse(localStorage.getItem('productStock'));
-    products.forEach(p=>{ if(stored[p.name]!=undefined)p.stock=stored[p.name]; });
-}
-// Load password
-let ADMIN_PASSWORD = localStorage.getItem('adminPassword') || 'admin123';
 
-// Render product cards
+// Render products dynamically
 function renderProducts(){
-    products.forEach(product=>{
-        const grid=document.getElementById(product.category.toLowerCase()+'-grid');
-        const card=document.createElement('div');
-        card.className='card reveal';
-        card.setAttribute('data-category', product.category);
-        card.innerHTML=`
-            <img src="${product.img}" alt="${product.name}" onerror="this.src='https://via.placeholder.com/300x400/111/d4af37?text=${encodeURIComponent(product.name)}'">
-            <p class="stock-status"></p>
-            <p class="product-name">${product.name}</p>
-            ${product.price?`<p class="price">${product.price}</p>`:''}
-            ${product.sizes.length?'<span class="options-label">Select Size:</span><div class="size-selector">'+product.sizes.map(s=>`<button type="button" class="size-btn">${s}</button>`).join('')+'</div>':''}
-            <span class="options-label">Quantity:</span>
-            <div class="qty-container">
-                <button class="qty-btn" onclick="updateQty(this,-1)">-</button>
-                <span class="qty-val">1</span>
-                <button class="qty-btn" onclick="updateQty(this,1)">+</button>
-            </div>
-            <button class="buy-now" onclick="sendOrder(this)">Buy Now</button>
-        `;
-        grid.appendChild(card);
-    });
+  products.forEach(p=>{
+    const grid = document.getElementById(p.category.toLowerCase()+'-grid');
+    const card = document.createElement('div');
+    card.className='card';
+    card.innerHTML=`
+      <img src="${p.img}" alt="${p.name}">
+      <p class="stock-status"></p>
+      <p class="product-name">${p.name}</p>
+      <p class="price">${p.price}</p>
+      ${p.sizes.length?'<span class="options-label">Select Size:</span><div class="size-selector">'+p.sizes.map(s=>`<button class="size-btn">${s}</button>`).join('')+'</div>':''}
+      <span class="options-label">Quantity:</span>
+      <div class="qty-container">
+        <button class="qty-btn" onclick="updateQty(this,-1)">-</button>
+        <span class="qty-val">1</span>
+        <button class="qty-btn" onclick="updateQty(this,1)">+</button>
+      </div>
+      <button class="buy-now" onclick="buyNow(this)">Buy Now</button>
+    `;
+    grid.appendChild(card);
+  });
+
+  updateStock();
+  animateCards();
 }
 
-// Update stock display
-function updateStockDisplay(){
-    document.querySelectorAll('.card').forEach(card=>{
-        const name=card.querySelector('.product-name').innerText;
-        const product=products.find(p=>p.name===name);
-        const stockEl=card.querySelector('.stock-status');
-        stockEl.innerHTML=product.stock>0?`● In Stock (${product.stock})`:'● Out of Stock';
-        stockEl.style.color=product.stock>0?'#2ecc71':'#e74c3c';
-        const qtyVal=card.querySelector('.qty-val');
-        const qtyInc=card.querySelectorAll('.qty-btn')[1];
-        qtyInc.disabled=parseInt(qtyVal.innerText)>=product.stock;
-        const qtyDec=card.querySelectorAll('.qty-btn')[0];
-        qtyDec.disabled=parseInt(qtyVal.innerText)<=1;
-    });
+// Stock display
+function updateStock(){
+  document.querySelectorAll('.card').forEach(card=>{
+    const name = card.querySelector('.product-name').innerText;
+    const product = products.find(p=>p.name===name);
+    const stockEl = card.querySelector('.stock-status');
+    stockEl.innerText = product.stock>0?`● In Stock (${product.stock})`:'● Out of Stock';
+    stockEl.style.color = product.stock>0?'#2ecc71':'#e74c3c';
+  });
 }
 
-// Quantity
+// Quantity buttons
 function updateQty(btn,change){
-    const card=btn.closest('.card');
-    const name=card.querySelector('.product-name').innerText;
-    const product=products.find(p=>p.name===name);
-    const valSpan=card.querySelector('.qty-val');
-    let val=parseInt(valSpan.innerText);
-    val=Math.max(1, Math.min(product.stock, val+change));
-    valSpan.innerText=val;
-    updateStockDisplay();
+  const card = btn.closest('.card');
+  const name = card.querySelector('.product-name').innerText;
+  const product = products.find(p=>p.name===name);
+  const valSpan = card.querySelector('.qty-val');
+  let val = parseInt(valSpan.innerText);
+  val = Math.max(1, Math.min(product.stock, val+change));
+  valSpan.innerText = val;
+  updateStock();
 }
 
 // Size selection
-document.body.addEventListener('click',e=>{
-    if(e.target.classList.contains('size-btn')){
-        e.target.parentElement.querySelectorAll('.size-btn').forEach(b=>b.classList.remove('active'));
-        e.target.classList.add('active');
-    }
+document.body.addEventListener('click', e=>{
+  if(e.target.classList.contains('size-btn')){
+    e.target.parentElement.querySelectorAll('.size-btn').forEach(b=>b.classList.remove('active'));
+    e.target.classList.add('active');
+  }
 });
 
-// Buy Now
-function sendOrder(btn){
-    const card=btn.closest('.card');
-    const name=card.querySelector('.product-name').innerText;
-    const product=products.find(p=>p.name===name);
-    if(product.stock<=0){ alert('Out of stock!'); return; }
-    const priceEl=card.querySelector('.price');
-    const price=priceEl?priceEl.innerText:'N/A';
-    const qty=parseInt(card.querySelector('.qty-val').innerText);
-    const activeSize=card.querySelector('.size-btn.active');
-    const size=activeSize?activeSize.innerText:'N/A';
-    const message=`Assalamu Alaikum, I want to order:\n\nProduct: ${name}\nSize: ${size}\nQuantity: ${qty}\nPrice: ${price}\n\nPlease confirm my order.`;
-    window.open(`https://wa.me/8801970141884?text=${encodeURIComponent(message)}`,'_blank');
-    product.stock-=qty;
-    localStorage.setItem('productStock',JSON.stringify(products.reduce((acc,p)=>{ acc[p.name]=p.stock; return acc; },{})));
-    updateStockDisplay();
-    renderInventory();
+// Buy Now button
+function buyNow(btn){
+  const card = btn.closest('.card');
+  const name = card.querySelector('.product-name').innerText;
+  const product = products.find(p=>p.name===name);
+  if(product.stock<=0){ alert('Out of stock!'); return; }
+  const qty = parseInt(card.querySelector('.qty-val').innerText);
+  const activeSize = card.querySelector('.size-btn.active');
+  const size = activeSize?activeSize.innerText:'N/A';
+  const message=`Assalamu Alaikum, I want to order:\nProduct: ${name}\nSize: ${size}\nQuantity: ${qty}\nPrice: ${product.price}\n\nPlease confirm my order.`;
+  window.open(`https://wa.me/8801970141884?text=${encodeURIComponent(message)}`,'_blank');
+  product.stock-=qty;
+  updateStock();
 }
 
-// GSAP reveal
-gsap.utils.toArray(".reveal").forEach((card,i)=>{ gsap.to(card,{scrollTrigger:{trigger:card,start:"top 90%"},opacity:1,y:0,duration:1,delay:i*0.1}); });
-
-// Inventory panel functions
-function renderInventory(){
-    const panel=document.getElementById('inventory-list');
-    panel.innerHTML='';
-    products.forEach((p,i)=>{
-        const div=document.createElement('div');
-        div.style.marginBottom='10px';
-        div.innerHTML=`
-            <strong style="color:white;">${p.name}</strong><br>
-            Stock: <span id="stock-${i}" style="color:var(--gold)">${p.stock}</span><br>
-            <button onclick="changeStock(${i},1)">+1</button>
-            <button onclick="changeStock(${i},-1)">-1</button>
-        `;
-        panel.appendChild(div);
-    });
+// GSAP animation after rendering
+function animateCards(){
+  gsap.utils.toArray(".card").forEach((card,i)=>{
+    gsap.to(card,{scrollTrigger:{trigger:card,start:"top 90%"},opacity:1,y:0,duration:1,delay:i*0.1});
+  });
 }
-
-function changeStock(index,amount){
-    products[index].stock=Math.max(0,products[index].stock+amount);
-    document.getElementById('stock-'+index).innerText=products[index].stock;
-    localStorage.setItem('productStock',JSON.stringify(products.reduce((acc,p)=>{ acc[p.name]=p.stock; return acc; },{})));
-    updateStockDisplay();
-}
-
-function hideInventory(){ document.getElementById('inventory-panel').style.display='none'; }
-function changePassword(){
-    const newPass=prompt('Enter new admin password:');
-    if(newPass){ ADMIN_PASSWORD=newPass; localStorage.setItem('adminPassword',newPass); alert('Password changed successfully'); }
-}
-
-// Prompt for admin password (only visible to you)
-function promptAdmin(){
-    const input=prompt('Enter admin password for inventory:');
-    if(input===ADMIN_PASSWORD){ document.getElementById('inventory-panel').style.display='block'; renderInventory(); }
-}
-promptAdmin();
 
 // Initialize
 renderProducts();
-updateStockDisplay();
 </script>
 
 </body>
